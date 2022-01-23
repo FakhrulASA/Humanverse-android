@@ -3,6 +3,7 @@ package com.humanverse.humanverseapp.feature.auth.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.humanverse.humanverseapp.base.BaseActivity
@@ -21,10 +22,12 @@ class LoginActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.progressBar.visibility= View.GONE
         authImp = AuthImp()
         auth = FirebaseAuth.getInstance()
         binding.button.setOnClickListener {
-
+            binding.progressBar.visibility= View.VISIBLE
+            binding.button.text=""
             verifyInputs()
         }
     }
@@ -57,6 +60,8 @@ class LoginActivity : BaseActivity() {
                         } else {
                             // If sign in fails, display a message to the user.
                             makeToastLong(task.exception!!.message.toString())
+                            binding.progressBar.visibility= View.GONE
+                            binding.button.text="LOGIN"
                         }
                     }
             }
