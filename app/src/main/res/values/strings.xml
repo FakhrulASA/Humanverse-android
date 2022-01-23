@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Humanverse</string>
+    <string name="enter_email">Enter email</string>
+    <string name="loginstring">Login</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="title_activity_home_dashboard">HomeDashboardActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>

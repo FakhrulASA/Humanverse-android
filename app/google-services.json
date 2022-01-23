@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "63816251055",
+    "project_id": "humanverse-57f4d",
+    "storage_bucket": "humanverse-57f4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63816251055:android:32a2997b812f6da650c65a",
+        "android_client_info": {
+          "package_name": "com.humanverse.humanverseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63816251055-ap4isifmm5s56cfhqnqkkbjgenm2mlun.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.humanverse.humanverseapp",
+            "certificate_hash": "8a759ccfe4b06442f9e3b513eeac573dcbb75ec7"
+          }
+        },
+        {
+          "client_id": "63816251055-2c6c354ufkgggreurpucs546t67bv78m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfdcPIeSUCOE3FEi5dvjmOcldN0CDfg3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63816251055-2c6c354ufkgggreurpucs546t67bv78m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "63816251055-k83qmt2chtpp0dlac4mq2oev47rrp8ij.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.humanverse.humanverseapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
