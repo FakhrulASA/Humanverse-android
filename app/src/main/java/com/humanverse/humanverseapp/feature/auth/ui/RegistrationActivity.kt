@@ -29,6 +29,7 @@ class RegistrationActivity : BaseActivity() {
 
         binding.button2.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 

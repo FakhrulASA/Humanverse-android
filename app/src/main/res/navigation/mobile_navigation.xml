@@ -8,18 +8,21 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.humanverse.humanverseapp.feature.home.ui.ui.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="Humanverse"
         tools:layout="@layout/fragment_home" />
-
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.humanverse.humanverseapp.feature.home.ui.ui.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="Favorite"
         tools:layout="@layout/fragment_dashboard" />
-
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.humanverse.humanverseapp.feature.home.ui.ui.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="Profile"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.humanverse.humanverseapp.feature.home.ui.ui.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/history_fragment" />
 </navigation>

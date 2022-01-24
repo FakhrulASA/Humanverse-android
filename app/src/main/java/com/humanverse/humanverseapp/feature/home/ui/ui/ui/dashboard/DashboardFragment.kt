@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.humanverse.humanverseapp.databinding.FragmentDashboardBinding
+import com.humanverse.humanverseapp.model.ModelDashboardItem
 
 class DashboardFragment : Fragment() {
 
@@ -18,7 +19,6 @@ class DashboardFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

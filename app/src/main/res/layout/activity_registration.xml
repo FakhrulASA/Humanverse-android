@@ -53,6 +53,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:id="@+id/reg_tl_email"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,6 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/reg_tl_pass"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
-                android:text="Don't have Humanverse account?"
+                android:text="Already have a humanverse account?"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +204,8 @@
                     android:layout_width="match_parent"
                     android:inputType="textPassword"
                     android:id="@+id/reg_tl_con_pass"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -222,6 +230,8 @@
                 android:layout_marginEnd="16dp"
                 android:hint="@string/enter_mobile_number"
                 app:endIconMode="clear_text"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 app:endIconTint="@color/purple_200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
@@ -231,6 +241,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:id="@+id/reg_tl_mobile"
+                    android:singleLine="true"
+                    android:inputType="number"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
             <ProgressBar

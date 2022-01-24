@@ -30,6 +30,10 @@ class LoginActivity : BaseActivity() {
             binding.button.text=""
             verifyInputs()
         }
+        binding.button2.setOnClickListener {
+            startActivity(Intent(this, RegistrationActivity::class.java))
+            finish()
+        }
     }
 
     override fun onStart() {
@@ -48,10 +52,13 @@ class LoginActivity : BaseActivity() {
     private fun verifyInputs() {
         if (binding.textLayoutEmail.text.isNullOrEmpty()) {
             binding.textLayoutEmail.error = "Please give valid email"
-
+            binding.progressBar.visibility= View.GONE
+            binding.button.text="LOGIN"
         } else {
             if (binding.textLayoutPass.text!!.length < 6) {
                 binding.textLayoutPass.error = "Please give valid password"
+                binding.progressBar.visibility= View.GONE
+                binding.button.text="LOGIN"
             } else {
                 auth.signInWithEmailAndPassword(binding.textLayoutEmail.text.toString().trim(), binding.textLayoutPass.text.toString().trim())
                     .addOnCompleteListener(this) { task ->
