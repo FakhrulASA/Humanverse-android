@@ -1,10 +1,12 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aemerse.slider.model.CarouselItem
@@ -18,14 +20,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
-
     private lateinit var adapter: DashboardItemAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
+    val vm : HomeViewModel by viewModels()
     lateinit var listSlider: MutableList<CarouselItem>
     private val binding get() = _binding!!
-    private var modelList: MutableList<ModelDashboardItem> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,49 +65,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun initList() {
-        modelList.add(
-            ModelDashboardItem(
-                "Car Rent",
-                R.drawable.car
+        vm.setValue()
+        vm.listItem.observe(this){
+            adapter = DashboardItemAdapter(requireContext())
+            Log.d("DataListFound",it.toString())
+            adapter.submitListData(it)
+            val layoutManager = GridLayoutManager(
+                activity, 3, GridLayoutManager.VERTICAL, false
             )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Car Wash",
-                R.drawable.car_wash
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Auto Repair",
-                R.drawable.auto
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Calender",
-                R.drawable.calender
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Charities",
-                R.drawable.charities
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Ac Service",
-                R.drawable.ac
-            )
-        )
-        adapter = DashboardItemAdapter(requireContext())
-        adapter.submitListData(modelList)
-        val layoutManager = GridLayoutManager(
-            activity, 3, GridLayoutManager.VERTICAL, false
-        )
-        binding.recyclerViewDashboarditem.layoutManager = layoutManager
-        binding.recyclerViewDashboarditem.adapter = adapter
+            binding.recyclerViewDashboarditem.layoutManager = layoutManager
+            binding.recyclerViewDashboarditem.adapter = adapter
+        }
+
     }
 
     override fun onDestroyView() {
