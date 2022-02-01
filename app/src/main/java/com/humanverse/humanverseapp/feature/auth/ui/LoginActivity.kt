@@ -69,7 +69,7 @@ class LoginActivity : BaseActivity() {
                                 startActivity(Intent(this, HomeActivity::class.java))
                                 finish()
                             }else{
-                                Toast.makeText(this,"Please verify your email address. We have sent a link in your mail", Toast.LENGTH_SHORT).show()
+                                showAlertDialog(this,"Verify your email!","Please verify your email address. We have sent a link in your mail")
                                 binding.progressBar.visibility= View.GONE
                                 binding.button.text="LOGIN"
                             }

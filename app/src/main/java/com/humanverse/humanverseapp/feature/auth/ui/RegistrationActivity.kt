@@ -9,6 +9,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityRegistrationBinding
 import com.humanverse.humanverseapp.firebase.AuthImp
+import android.content.DialogInterface
+
+
+
 
 class RegistrationActivity : BaseActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -60,7 +64,7 @@ class RegistrationActivity : BaseActivity() {
                                         .document(auth.currentUser!!.email!!.toString())
                                         .set(city)
                                         .addOnSuccessListener {
-                                            makeToastLong("Please verify your email address. We have sent a link in your mail")
+                                            showAlertDialog(this,"Verify your email!","Please verify your email address. We have sent a link in your mail")
                                             startActivity(Intent(this, LoginActivity::class.java))
                                         }
                                         .addOnFailureListener { e ->
