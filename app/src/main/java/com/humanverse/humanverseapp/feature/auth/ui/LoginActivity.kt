@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.humanverse.humanverseapp.base.BaseActivity
@@ -62,8 +63,17 @@ class LoginActivity : BaseActivity() {
             } else {
                 auth.signInWithEmailAndPassword(binding.textLayoutEmail.text.toString().trim(), binding.textLayoutPass.text.toString().trim())
                     .addOnCompleteListener(this) { task ->
+
                         if (task.isSuccessful) {
-                            startActivity(Intent(this, HomeActivity::class.java))
+                            if(auth.currentUser!!.isEmailVerified){
+                                startActivity(Intent(this, HomeActivity::class.java))
+                                finish()
+                            }else{
+                                Toast.makeText(this,"Please verify your email address. We have sent a link in your mail", Toast.LENGTH_SHORT).show()
+                                binding.progressBar.visibility= View.GONE
+                                binding.button.text="LOGIN"
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             makeToastLong(task.exception!!.message.toString())

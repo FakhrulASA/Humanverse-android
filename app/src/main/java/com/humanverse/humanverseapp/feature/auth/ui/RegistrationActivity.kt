@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityRegistrationBinding
-import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
 import com.humanverse.humanverseapp.firebase.AuthImp
 
 class RegistrationActivity : BaseActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var authImp: AuthImp
+    var db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -36,10 +37,12 @@ class RegistrationActivity : BaseActivity() {
     private fun verifyRegistration() {
         if (binding.regTlEmail.text.isNullOrEmpty() || binding.regTlMobile.text.isNullOrEmpty() || binding.regTlConPass.text.isNullOrEmpty() || binding.regTlPass.text.isNullOrEmpty()) {
             makeToastLong("Please give proper input")
-            binding.progressBar.visibility= View.GONE
-            binding.button.text="REGISTER"
+            binding.progressBar.visibility = View.GONE
+            binding.button.text = "REGISTER"
         } else {
-            if (binding.regTlConPass.text.toString().trim() == binding.regTlPass.text.toString().trim()) {
+            if (binding.regTlConPass.text.toString().trim() == binding.regTlPass.text.toString()
+                    .trim()
+            ) {
                 auth.createUserWithEmailAndPassword(
                     binding.regTlEmail.text.toString().trim(),
                     binding.regTlConPass.text.toString().trim()
@@ -49,11 +52,26 @@ class RegistrationActivity : BaseActivity() {
                             auth.currentUser!!.sendEmailVerification().addOnCompleteListener {
                                 // Sign in success, update UI with the signed-in user's information
                                 if (it.isSuccessful) {
-                                    startActivity(Intent(this, HomeActivity::class.java))
+                                    val city = hashMapOf(
+                                        "mobile" to binding.regTlMobile.text.toString(),
+                                    )
+
+                                    db.collection("user")
+                                        .document(auth.currentUser!!.email!!.toString())
+                                        .set(city)
+                                        .addOnSuccessListener {
+                                            makeToastLong("Please verify your email address. We have sent a link in your mail")
+                                            startActivity(Intent(this, LoginActivity::class.java))
+                                        }
+                                        .addOnFailureListener { e ->
+                                            makeToastLong(e.message.toString())
+                                        }
+
+
                                 } else {
                                     makeToastLong(it.exception!!.message.toString())
-                                    binding.progressBar.visibility= View.GONE
-                                    binding.button.text="REGISTER"
+                                    binding.progressBar.visibility = View.GONE
+                                    binding.button.text = "REGISTER"
                                 }
                             }
 
@@ -65,14 +83,14 @@ class RegistrationActivity : BaseActivity() {
                                 task.exception
                             )
                             makeToastLong(task.exception!!.message.toString())
-                            binding.progressBar.visibility= View.GONE
-                            binding.button.text="REGISTER"
+                            binding.progressBar.visibility = View.GONE
+                            binding.button.text = "REGISTER"
                         }
                     }
             } else {
                 makeToastLong("Password not matched")
-                binding.progressBar.visibility= View.GONE
-                binding.button.text="REGISTER"
+                binding.progressBar.visibility = View.GONE
+                binding.button.text = "REGISTER"
             }
         }
 

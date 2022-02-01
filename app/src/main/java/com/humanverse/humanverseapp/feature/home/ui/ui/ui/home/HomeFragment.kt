@@ -1,5 +1,6 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.aemerse.slider.model.CarouselItem
 import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentHomeBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.ui.dashboard.adapter.DashboardItemAdapter
+import com.humanverse.humanverseapp.feature.service.ServiceActivity
 import com.humanverse.humanverseapp.model.ModelDashboardItem
 
 
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initList()
         initSlider()
+
 
     }
 
@@ -75,6 +78,9 @@ class HomeFragment : Fragment() {
             )
             binding.recyclerViewDashboarditem.layoutManager = layoutManager
             binding.recyclerViewDashboarditem.adapter = adapter
+            adapter.itemActionListener = {
+                startActivity(Intent(requireContext(),ServiceActivity::class.java))
+            }
         }
 
     }
