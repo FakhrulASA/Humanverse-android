@@ -33,6 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="0dp"
@@ -56,15 +57,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-            <Spinner
+            <EditText
                 android:id="@+id/spinner2"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
+                android:textColor="@color/black"
+                android:paddingHorizontal="10dp"
+                android:hint="Enter your service name"
                 android:background="@drawable/rounded_stroke"
                 app:layout_constraintBottom_toBottomOf="@+id/textView9"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/spinner"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
+                app:layout_constraintTop_toTopOf="@+id/textView9"
+                app:layout_constraintVertical_bias="0.461" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -128,8 +134,10 @@
                 android:layout_height="45dp"
                 android:background="@drawable/rounded_stroke"
                 android:ems="10"
+                android:textColor="@color/black"
                 android:inputType="textPersonName"
-                android:text="Name"
+                android:hint="Enter your city name"
+                android:paddingHorizontal="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/spinner5"
@@ -154,7 +162,10 @@
                 android:background="@drawable/rounded_stroke"
                 android:ems="10"
                 android:inputType="textPersonName"
-
+                android:autoLink="all"
+                android:textColor="@color/black"
+                android:paddingHorizontal="10dp"
+                android:hint="Website/portfolio link"
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
@@ -178,8 +189,10 @@
                 android:layout_height="45dp"
                 android:background="@drawable/rounded_stroke"
                 android:ems="10"
-                android:inputType="textPersonName"
-
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:hint="Give your starting price"
+                android:paddingHorizontal="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
@@ -206,6 +219,10 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:maxLength="500"
+                android:padding="10dp"
+                android:hint="Describe your service"
+                android:textColor="@color/black"
+                android:gravity="start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
