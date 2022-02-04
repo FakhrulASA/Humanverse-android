@@ -22,6 +22,8 @@
         <item>Car rental service</item>
         <item>Charities service</item>
     </string-array>
+    <string name="file_provider_name" translatable="false">.fileProvider</string>
+
     <string-array name="country_list">
         <item>"Select country</item>
         <item>United States</item>
