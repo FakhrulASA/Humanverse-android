@@ -13,6 +13,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -33,7 +34,7 @@ class NotificationsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-
+    private lateinit var ref: StorageReference
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +54,25 @@ class NotificationsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance();
         storageReference = storage!!.reference;
+        ref = storageReference?.child(
+            "profile_pictures/" + auth.currentUser!!.email
+        )!!
+
+        binding.progressBar3.visibility = View.VISIBLE
+        try {
+            ref?.downloadUrl?.addOnSuccessListener {
+                Glide
+                    .with(requireContext())
+                    .load(it)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.profileImage)
+                binding.progressBar3.visibility = View.GONE
+            }.addOnFailureListener {
+                binding.progressBar3.visibility = View.GONE
+            }
+        } catch (e: Exception) {
+        }
 
         binding.logoutUser.setOnClickListener {
             auth.signOut()
@@ -62,7 +82,6 @@ class NotificationsFragment : Fragment() {
         binding.profileImage.setOnClickListener {
             openGallery()
         }
-
 
     }
 
@@ -106,6 +125,8 @@ class NotificationsFragment : Fragment() {
         }
     private var intentDocument =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            binding.progressBar3.visibility = View.VISIBLE
+
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
 
                 var file: File? = FileUtil.from(requireContext(), result.data?.data!!)
@@ -116,28 +137,21 @@ class NotificationsFragment : Fragment() {
                         .load(file)
                         .centerCrop()
                         .into(binding.profileImage);
-//            var file = Uri.fromFile(File(getPathFromUri(requireContext(), filePath!!)))
-//
-                    var stream: InputStream = FileInputStream(file)
-                    //            var stream:InputStream =FileInputStream(File(getPathFromUri(requireContext(), filePath!!)))
-                    val ref = storageReference?.child(
-                        "images/" + "user1"
-                    )
 
                     val uploadTask = ref?.putFile(file!!.toUri())
 
                     if (uploadTask != null) {
                         uploadTask.addOnFailureListener {
                             // Handle unsuccessful uploads
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }.addOnSuccessListener { taskSnapshot ->
-                            Toast.makeText(requireContext(), "yay", Toast.LENGTH_SHORT).show()
+                            binding.progressBar3.visibility = View.GONE
 
-                            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                            // ...
+                        }.addOnSuccessListener { taskSnapshot ->
+                            binding.progressBar3.visibility = View.GONE
                         }
-                    }else{
+                    } else {
                         Toast.makeText(requireContext(), "aaa", Toast.LENGTH_SHORT)
+                        binding.progressBar3.visibility = View.GONE
+
                     }
                 }
             }
