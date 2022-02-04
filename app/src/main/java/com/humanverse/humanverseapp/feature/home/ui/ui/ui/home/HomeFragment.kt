@@ -15,7 +15,7 @@ import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentHomeBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.ui.dashboard.adapter.DashboardItemAdapter
 import com.humanverse.humanverseapp.feature.service.ServiceActivity
-import com.humanverse.humanverseapp.model.ModelDashboardItem
+import com.humanverse.humanverseapp.util.SERVICE_TPYE
 
 
 class HomeFragment : Fragment() {
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    val vm : HomeViewModel by viewModels()
+    val vm: HomeViewModel by viewModels()
     lateinit var listSlider: MutableList<CarouselItem>
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -69,17 +69,19 @@ class HomeFragment : Fragment() {
 
     private fun initList() {
         vm.setValue()
-        vm.listItem.observe(this){
+        vm.listItem.observe(this) { dashboarditem ->
             adapter = DashboardItemAdapter(requireContext())
-            Log.d("DataListFound",it.toString())
-            adapter.submitListData(it)
+            Log.d("DataListFound", dashboarditem.toString())
+            adapter.submitListData(dashboarditem)
             val layoutManager = GridLayoutManager(
                 activity, 3, GridLayoutManager.VERTICAL, false
             )
             binding.recyclerViewDashboarditem.layoutManager = layoutManager
             binding.recyclerViewDashboarditem.adapter = adapter
             adapter.itemActionListener = {
-                startActivity(Intent(requireContext(),ServiceActivity::class.java))
+                val intent = Intent(requireContext(), ServiceActivity::class.java)
+                intent.putExtra(SERVICE_TPYE,it.type)
+                startActivity(intent)
             }
         }
 

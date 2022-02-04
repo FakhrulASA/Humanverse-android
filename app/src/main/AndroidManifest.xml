@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
-            android:name=".feature.service.ServiceActivity"
-            android:label="Available car service's"
+            android:name=".feature.profile.ProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".feature.service.AddServiceActivity"
+            android:exported="false"
+            android:label="Add service" />
+        <activity
+            android:name=".feature.service.ServiceActivity"
+            android:exported="false"
+            android:label="Available car service&apos;s" />
         <activity
             android:name=".feature.home.ui.ui.HomeActivity"
             android:exported="false"

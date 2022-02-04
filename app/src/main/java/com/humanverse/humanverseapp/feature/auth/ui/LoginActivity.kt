@@ -12,7 +12,7 @@ import com.humanverse.humanverseapp.databinding.ActivityLoginBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
 import com.humanverse.humanverseapp.firebase.AuthImp
 
-
+//completed
 class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -72,6 +72,7 @@ class LoginActivity : BaseActivity() {
                                 showAlertDialog(this,"Verify your email!","Please verify your email address. We have sent a link in your mail")
                                 binding.progressBar.visibility= View.GONE
                                 binding.button.text="LOGIN"
+                                auth.signOut()
                             }
 
                         } else {
