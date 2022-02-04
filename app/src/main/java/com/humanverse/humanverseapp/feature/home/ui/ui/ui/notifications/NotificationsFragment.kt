@@ -1,14 +1,15 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.humanverse.humanverseapp.databinding.FragmentNotificationsBinding
+import com.humanverse.humanverseapp.feature.auth.ui.LoginActivity
 
 class NotificationsFragment : Fragment() {
 
@@ -18,23 +19,27 @@ class NotificationsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
-
+            ViewModelProvider(this)[NotificationsViewModel::class.java]
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        binding.logoutUser.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(requireContext(),LoginActivity::class.java))
+        }
     }
 
     override fun onDestroyView() {
