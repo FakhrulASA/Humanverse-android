@@ -10,7 +10,9 @@
         android:id="@+id/cardView_dashboard_item"
         app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#FDFAFF"
         app:cardElevation="2dp"
+        android:outlineAmbientShadowColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,6 +26,7 @@
                 android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
+                android:layout_marginTop="5dp"
                 app:srcCompat="@drawable/auto" />
 
             <TextView
@@ -31,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="#A172A8"
                 android:fontFamily="@font/capriola"
                 android:padding="10dp"

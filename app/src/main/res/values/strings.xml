@@ -15,12 +15,12 @@
     <string name="title_history">Service</string>
     <string-array name="service_type">
         <item>Select service</item>
-        <item>Car wash service</item>
-        <item>Car repair service</item>
-        <item>AC repair/cleaning service</item>
-        <item>Calender service</item>
-        <item>Car rental service</item>
-        <item>Charities service</item>
+        <item>Car wash</item>
+        <item>Car repair</item>
+        <item>AC repair</item>
+        <item>Calender</item>
+        <item>Car rental</item>
+        <item>Charities</item>
     </string-array>
     <string name="file_provider_name" translatable="false">.fileProvider</string>
     <string name="tap_to_add_name">Tap to add name</string>
