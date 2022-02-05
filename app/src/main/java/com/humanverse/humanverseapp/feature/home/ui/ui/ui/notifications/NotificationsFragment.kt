@@ -1,40 +1,46 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.notifications
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentNotificationsBinding
 import com.humanverse.humanverseapp.feature.auth.ui.LoginActivity
 import com.humanverse.humanverseapp.util.FileUtil
+import com.humanverse.humanverseapp.util.Utils.showAlertDialogForTap
 import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
 
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
     private var _binding: FragmentNotificationsBinding? = null
+    var db = FirebaseFirestore.getInstance()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
     private lateinit var ref: StorageReference
+    lateinit var mobile: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +63,9 @@ class NotificationsFragment : Fragment() {
         ref = storageReference?.child(
             "profile_pictures/" + auth.currentUser!!.email
         )!!
+        auth = FirebaseAuth.getInstance()
 
+        binding.textView12.isEnabled = false
         binding.progressBar3.visibility = View.VISIBLE
         try {
             ref?.downloadUrl?.addOnSuccessListener {
@@ -73,16 +81,77 @@ class NotificationsFragment : Fragment() {
             }
         } catch (e: Exception) {
         }
+        db.collection("user").document(auth.currentUser!!.email.toString())
+            .get()
+            .addOnSuccessListener { documents ->
+                mobile = documents.get("mobile").toString()
+                binding.textView12.setText(documents.get("name").toString())
+            }
+            .addOnFailureListener { exception ->
+            }
 
         binding.logoutUser.setOnClickListener {
-            auth.signOut()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
+
+            showAlertDialogForTap(requireContext(),
+                "Signing out?",
+                "Are you sure you want to sign out from the app?",
+                {
+                    auth.signOut()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                },
+                {
+
+                })
+
         }
 
         binding.profileImage.setOnClickListener {
             openGallery()
         }
+        binding.textView12.setOnFocusChangeListener { view, b ->
+            if (b) {
+                view.isEnabled = true
+                binding.button6.visibility = View.VISIBLE
+            }
+        }
 
+        binding.button6.setOnClickListener {
+            binding.button6.setBackgroundTintList(
+                ContextCompat.getColorStateList(
+                    requireContext(),
+                    R.color.green
+                )
+            )
+            if (binding.textView12.isEnabled) {
+
+                val city = hashMapOf(
+                    "name" to binding.textView12.text.toString(),
+                    "mobile" to mobile,
+                )
+                db.collection("user")
+                    .document(auth.currentUser!!.email!!.toString())
+                    .set(city)
+                    .addOnSuccessListener {
+                        binding.textView12.isEnabled = false
+                        binding.button6.setBackgroundTintList(
+                            ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.purple_200
+                            )
+                        )
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                binding.textView12.isEnabled = true
+                binding.textView12.selectAll()
+                binding.textView12.requestFocus()
+                val inputMethodManager =
+                    context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            }
+        }
     }
 
     fun openGallery() {
@@ -95,34 +164,6 @@ class NotificationsFragment : Fragment() {
         intentDocument.launch(pickIntent)
     }
 
-    var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // There are no request codes
-                val data: Intent? = result.data
-                Glide
-                    .with(requireContext())
-                    .load(data!!.data)
-                    .centerCrop()
-                    .into(binding.profileImage);
-
-                filePath = data.data
-//            var file = Uri.fromFile(File(getPathFromUri(requireContext(), filePath!!)))
-//
-                Toast.makeText(requireContext(), filePath.toString(), Toast.LENGTH_SHORT).show()
-//            var stream:InputStream =FileInputStream(File(getPathFromUri(requireContext(), filePath!!)))
-//            val ref = storageReference?.child(
-//                "images/" + "user1"
-//            )
-//            if (filePath != null) {
-//                ref!!.putStream(stream).addOnSuccessListener {
-//                    Toast.makeText(requireContext(),"SUCCESS",Toast.LENGTH_SHORT).show()
-//                }.addOnFailureListener {
-//                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-//                }
-//            }
-            }
-        }
     private var intentDocument =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             binding.progressBar3.visibility = View.VISIBLE
@@ -154,6 +195,8 @@ class NotificationsFragment : Fragment() {
 
                     }
                 }
+            } else {
+                binding.progressBar3.visibility = View.GONE
             }
         }
 }
