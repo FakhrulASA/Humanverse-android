@@ -67,20 +67,21 @@ class NotificationsFragment : Fragment() {
 
         binding.textView12.isEnabled = false
         binding.progressBar3.visibility = View.VISIBLE
-        try {
             ref?.downloadUrl?.addOnSuccessListener {
-                Glide
-                    .with(requireContext())
-                    .load(it)
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.profileImage)
-                binding.progressBar3.visibility = View.GONE
+                try {
+                    Glide
+                        .with(requireContext())
+                        .load(it)
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(binding.profileImage)
+                    binding.progressBar3.visibility = View.GONE
+                } catch (e: Exception) {
+
+                }
             }.addOnFailureListener {
                 binding.progressBar3.visibility = View.GONE
             }
-        } catch (e: Exception) {
-        }
         db.collection("user").document(auth.currentUser!!.email.toString())
             .get()
             .addOnSuccessListener { documents ->
