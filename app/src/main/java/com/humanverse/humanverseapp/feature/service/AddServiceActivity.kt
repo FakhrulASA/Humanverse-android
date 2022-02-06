@@ -68,43 +68,43 @@ class AddServiceActivity : BaseActivity() {
     }
 
     private fun validateInfo() {
-        if (category.isNullOrEmpty() || binding.spinner.selectedItemPosition == 0) {
+        if (category.isEmpty() || binding.spinner.selectedItemPosition == 0) {
             showAlertDialog(
                 this,
                 "Category is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (country.isNullOrEmpty() || binding.spinner4.selectedItemPosition == 0) {
+        } else if (country.isEmpty() || binding.spinner4.selectedItemPosition == 0) {
             showAlertDialog(
                 this,
                 "Country is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (state.isNullOrEmpty() || binding.spinner5.selectedItemPosition == 0) {
+        } else if (state.isEmpty() || binding.spinner5.selectedItemPosition == 0) {
             showAlertDialog(
                 this,
                 "State is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (city.isNullOrEmpty()) {
+        } else if (city.isEmpty()) {
             showAlertDialog(
                 this,
                 "City is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (price.isNullOrEmpty()) {
+        } else if (price.isEmpty()) {
             showAlertDialog(
                 this,
                 "Price is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (description.isNullOrEmpty()) {
+        } else if (description.isEmpty()) {
             showAlertDialog(
                 this,
                 "Description is required",
                 "Please fill the field with proper value in order to complete registration"
             )
-        } else if (serviceName.isNullOrEmpty()) {
+        } else if (serviceName.isEmpty()) {
             showAlertDialog(
                 this,
                 "Service name/title is required",

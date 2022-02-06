@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference
 import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentNotificationsBinding
 import com.humanverse.humanverseapp.feature.auth.ui.LoginActivity
+import com.humanverse.humanverseapp.feature.helpcenter.HelpCenterActivity
 import com.humanverse.humanverseapp.util.FileUtil
 import com.humanverse.humanverseapp.util.Utils.showAlertDialogForTap
 import java.io.File
@@ -64,7 +65,9 @@ class NotificationsFragment : Fragment() {
         ref = storageReference?.child(
             "profile_pictures/" + auth.currentUser!!.email
         )!!
-
+        binding.textView21.setOnClickListener {
+            startActivity(Intent(requireContext(),HelpCenterActivity::class.java))
+        }
         binding.textView12.isEnabled = false
         binding.progressBar3.visibility = View.VISIBLE
         ref?.downloadUrl?.addOnSuccessListener {

@@ -12,18 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
+            android:name=".feature.helpcenter.HelpCenterActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.profile.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".feature.service.AddServiceActivity"
-            android:parentActivityName=".feature.home.ui.ui.HomeActivity"
             android:exported="false"
-            android:label="Add service" />
+            android:label="Add service"
+            android:parentActivityName=".feature.home.ui.ui.HomeActivity" />
         <activity
             android:name=".feature.service.ServiceActivity"
             android:exported="false"
-            android:parentActivityName=".feature.home.ui.ui.HomeActivity"
-            android:label="Available car service&apos;s" />
+            android:label="Available car service&apos;s"
+            android:parentActivityName=".feature.home.ui.ui.HomeActivity" />
         <activity
             android:name=".feature.home.ui.ui.HomeActivity"
             android:exported="false"
