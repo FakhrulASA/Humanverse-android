@@ -117,12 +117,12 @@ class AddServiceActivity : BaseActivity() {
                 "Please fill the field with proper value in order to complete registration"
             )
         } else {
-
             submitData()
         }
     }
 
     lateinit var image: String
+
     private fun submitData() {
         binding.progressBar3.visibility = View.VISIBLE
         val uploadTask = ref?.putFile(file.toUri())
