@@ -58,6 +58,7 @@ class RegistrationActivity : BaseActivity() {
                                 if (it.isSuccessful) {
                                     val city = hashMapOf(
                                         "mobile" to binding.regTlMobile.text.toString(),
+                                        "isMember" to 0
                                     )
 
                                     db.collection("user")
