@@ -122,55 +122,59 @@ class AddServiceActivity : BaseActivity() {
         }
     }
 
+    lateinit var image: String
     private fun submitData() {
-        val service = hashMapOf(
-            "serviceName" to serviceName,
-            "category" to category,
-            "country" to country,
-            "state" to state,
-            "description" to description,
-            "price" to price,
-            "city" to city,
-            "email" to auth.currentUser!!.email.toString()
-        )
         binding.progressBar3.visibility = View.VISIBLE
-
+        val uploadTask = ref?.putFile(file.toUri())
         try {
-            db.collection("service")
-                .document(category.lowercase().filter { !it.isWhitespace() })
-                .collection(auth.currentUser!!.email!!.toString())
-                .document(category.lowercase().filter { !it.isWhitespace() })
-                .set(service)
-                .addOnSuccessListener {
-                    Utils.showAlertDialogForTap(this,
-                        "Successfully posted",
-                        "Your service successfully posted, wait till the verification is complete!",
-                        {
-                            startActivity(Intent(this, HomeActivity::class.java))
-                            finish()
-                        },
-                        {
-
-                        })
-                    binding.progressBar3.visibility = View.GONE
-
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                    binding.progressBar3.visibility = View.GONE
-
-                }
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show()
-        }
-        try {
-            val uploadTask = ref?.putFile(file.toUri())
             uploadTask.addOnFailureListener {
                 // Handle unsuccessful uploads
-                binding.progressBar3.visibility = View.GONE
-
             }.addOnSuccessListener { taskSnapshot ->
-                binding.progressBar3.visibility = View.GONE
+                ref.downloadUrl.addOnSuccessListener {
+                    image = it.toString()
+                    val service = hashMapOf(
+                        "serviceName" to serviceName,
+                        "category" to category,
+                        "country" to country,
+                        "state" to state,
+                        "description" to description,
+                        "price" to price,
+                        "city" to city,
+                        "email" to auth.currentUser!!.email.toString(),
+                        "banner" to image
+                    )
+                    try {
+                        db.collection("service")
+                            .document("services")
+                            .collection(category.lowercase().filter { !it.isWhitespace() })
+                            .document(auth.currentUser!!.email!!.toString())
+                            .set(service)
+                            .addOnSuccessListener {
+                                Utils.showAlertDialogForTap(this,
+                                    "Successfully posted",
+                                    "Your service successfully posted, wait till the verification is complete!",
+                                    {
+                                        startActivity(Intent(this, HomeActivity::class.java))
+                                        finish()
+                                    },
+                                    {
+
+                                    })
+                                binding.progressBar3.visibility = View.GONE
+
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                                binding.progressBar3.visibility = View.GONE
+
+                            }
+                    } catch (e: Exception) {
+                        Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    binding.progressBar3.visibility = View.GONE
+                }
+
             }
         } catch (e: Exception) {
             Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show()
@@ -189,14 +193,10 @@ class AddServiceActivity : BaseActivity() {
 
     private var intentDocument =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-
                 file = FileUtil.from(this, result.data?.data!!)
                 if (result.resultCode == Activity.RESULT_OK) {
-
                     imageUploaded = true
-
                 }
             } else {
             }

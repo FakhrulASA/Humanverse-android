@@ -36,11 +36,11 @@ class ServiceActivity : BaseActivity() {
         binding.progressBar2.visibility= View.GONE
         when (intent.extras!!.get(SERVICE_TPYE) as Int) {
             SERVICE_AC -> {
-                getService("ac")
+                getService("acrepair")
                 title = "Ac services"
             }
             SERVICE_CAR_WASH -> {
-                getService("carwash_01")
+                getService("carwash")
                 title = "Car wash service's"
 
             }
@@ -50,7 +50,7 @@ class ServiceActivity : BaseActivity() {
 
             }
             SERVICE_CAR_RENT -> {
-                getService("car_rent")
+                getService("carrental")
                 setTitle("Car rental service's")
             }
             SERVICE_CHARITIES -> {
@@ -58,7 +58,7 @@ class ServiceActivity : BaseActivity() {
                 setTitle("Charities service's")
             }
             SERVICE_CAR_REPAIR -> {
-                getService("car_repair")
+                getService("carrepair")
                 setTitle("Car repair service's")
             }
         }
@@ -71,7 +71,7 @@ class ServiceActivity : BaseActivity() {
         binding.progressBar2.visibility= View.VISIBLE
 
         if(isNetworkAvailable()){
-            db.collection("/service/car_wash/$servie")
+            db.collection("/service/services/$servie")
                 .get()
                 .addOnSuccessListener { documents ->
                     binding.progressBar2.visibility= View.GONE
@@ -82,9 +82,9 @@ class ServiceActivity : BaseActivity() {
                     for (document in documents) {
                         dataList.add(
                             ServiceModel(
-                                img = document.get("img").toString(),
-                                title = document.get("title").toString(),
-                                des = document.get("des").toString(),
+                                img = document.get("banner").toString(),
+                                title = document.get("serviceName").toString(),
+                                des = document.get("description").toString(),
                                 price = document.get("price").toString().toInt()
                             )
                         )

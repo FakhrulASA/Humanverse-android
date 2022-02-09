@@ -52,7 +52,13 @@ class HomeFragment : Fragment() {
     private fun initSlider() {
         binding.carousel.registerLifecycle(lifecycle)
         listSlider = mutableListOf<CarouselItem>()
-        // Image URL with caption
+        // Image URL with
+
+        listSlider.add(
+            CarouselItem(
+                imageDrawable = R.drawable.joh
+            )
+        )
         listSlider.add(
             CarouselItem(
                 imageDrawable = R.drawable.homebanner_1

@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
+            android:name=".feature.service.OrderProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.service.OrderServiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.helpcenter.HelpCenterActivity"
             android:exported="false" />
         <activity
