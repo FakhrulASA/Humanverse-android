@@ -10,8 +10,7 @@ import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityRegistrationBinding
 import com.humanverse.humanverseapp.firebase.AuthImp
 import android.content.DialogInterface
-
-
+import com.humanverse.humanverseapp.R
 
 
 class RegistrationActivity : BaseActivity() {
@@ -42,7 +41,7 @@ class RegistrationActivity : BaseActivity() {
         if (binding.regTlEmail.text.isNullOrEmpty() || binding.regTlMobile.text.isNullOrEmpty() || binding.regTlConPass.text.isNullOrEmpty() || binding.regTlPass.text.isNullOrEmpty()) {
             makeToastLong("Please give proper input")
             binding.progressBar.visibility = View.GONE
-            binding.button.text = "REGISTER"
+            binding.button.text = getString(R.string.register_string)
         } else {
             if (binding.regTlConPass.text.toString().trim() == binding.regTlPass.text.toString()
                     .trim()
@@ -60,7 +59,6 @@ class RegistrationActivity : BaseActivity() {
                                         "mobile" to binding.regTlMobile.text.toString(),
                                         "isMember" to 0
                                     )
-
                                     db.collection("user")
                                         .document(auth.currentUser!!.email!!.toString())
                                         .set(city)
@@ -71,12 +69,10 @@ class RegistrationActivity : BaseActivity() {
                                         .addOnFailureListener { e ->
                                             makeToastLong(e.message.toString())
                                         }
-
-
                                 } else {
                                     makeToastLong(it.exception!!.message.toString())
                                     binding.progressBar.visibility = View.GONE
-                                    binding.button.text = "REGISTER"
+                                    binding.button.text = getString(R.string.register_string)
                                 }
                             }
 
@@ -89,13 +85,13 @@ class RegistrationActivity : BaseActivity() {
                             )
                             makeToastLong(task.exception!!.message.toString())
                             binding.progressBar.visibility = View.GONE
-                            binding.button.text = "REGISTER"
+                            binding.button.text = getString(R.string.register_string)
                         }
                     }
             } else {
                 makeToastLong("Password not matched")
                 binding.progressBar.visibility = View.GONE
-                binding.button.text = "REGISTER"
+                binding.button.text = getString(R.string.register_string)
             }
         }
 

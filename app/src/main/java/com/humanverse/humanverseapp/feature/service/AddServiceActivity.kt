@@ -147,7 +147,7 @@ class AddServiceActivity : BaseActivity() {
                         db.collection("service")
                             .document("services")
                             .collection(category.lowercase().filter { !it.isWhitespace() })
-                            .document(auth.currentUser!!.email!!.toString())
+                            .document()
                             .set(service)
                             .addOnSuccessListener {
                                 Utils.showAlertDialogForTap(this,

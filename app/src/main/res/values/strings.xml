@@ -25,6 +25,8 @@
     <string name="file_provider_name" translatable="false">.fileProvider</string>
     <string name="tap_to_add_name">Tap to add name</string>
     <string name="help_text">You will be notified with a email within 2-4 working days. Thank you for contacting us.</string>
+    <string name="register_string">REGISTER</string>
+    <string name="login_string">LOGIN</string>
 
     <string-array name="country_list">
         <item>"Select country</item>

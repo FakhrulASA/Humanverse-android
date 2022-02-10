@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityLoginBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
@@ -54,12 +55,12 @@ class LoginActivity : BaseActivity() {
         if (binding.textLayoutEmail.text.isNullOrEmpty()) {
             binding.textLayoutEmail.error = "Please give valid email"
             binding.progressBar.visibility= View.GONE
-            binding.button.text="LOGIN"
+            binding.button.text=getString(R.string.login_string)
         } else {
             if (binding.textLayoutPass.text!!.length < 6) {
                 binding.textLayoutPass.error = "Please give valid password"
                 binding.progressBar.visibility= View.GONE
-                binding.button.text="LOGIN"
+                binding.button.text=getString(R.string.login_string)
             } else {
                 auth.signInWithEmailAndPassword(binding.textLayoutEmail.text.toString().trim(), binding.textLayoutPass.text.toString().trim())
                     .addOnCompleteListener(this) { task ->
@@ -71,7 +72,7 @@ class LoginActivity : BaseActivity() {
                             }else{
                                 showAlertDialog(this,"Verify your email!","Please verify your email address. We have sent a link in your mail")
                                 binding.progressBar.visibility= View.GONE
-                                binding.button.text="LOGIN"
+                                binding.button.text=getString(R.string.login_string)
                                 auth.signOut()
                             }
 
@@ -79,7 +80,7 @@ class LoginActivity : BaseActivity() {
                             // If sign in fails, display a message to the user.
                             makeToastLong(task.exception!!.message.toString())
                             binding.progressBar.visibility= View.GONE
-                            binding.button.text="LOGIN"
+                            binding.button.text=getString(R.string.login_string)
                         }
                     }
             }

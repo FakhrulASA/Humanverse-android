@@ -21,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -30,14 +31,19 @@
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.aemerse.slider.ImageCarousel
-            android:id="@+id/carousel"
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
             android:layout_width="match_parent"
-            android:layout_height="190dp" />
+            android:layout_height="190dp"
+            app:iss_auto_cycle="true"
+            android:gravity="center"
+            app:iss_delay="0"
+            app:iss_period="1000"
+            app:iss_placeholder="@drawable/banner_jc" />
     </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/textView5"
@@ -70,12 +76,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_dashboarditem"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:id="@+id/recyclerView_dashboarditem"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
