@@ -26,6 +26,11 @@ class ServiceItemAdapter(var context: Context): RecyclerView.Adapter<ServiceItem
             binding.tvStartsFrom.text=model.price.toString()+"$"
             binding.tvTitle.text=model.title.toString()
             binding.tvDescription.text= model.des
+            binding.cardservice.setOnClickListener {
+                adapter.itemActionListener.invoke(model)
+            }
+
+
         }
     }
 

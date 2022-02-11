@@ -27,10 +27,18 @@
     <string name="help_text">You will be notified with a email within 2-4 working days. Thank you for contacting us.</string>
     <string name="register_string">REGISTER</string>
     <string name="login_string">LOGIN</string>
+    <string name="service_string">Service</string>
 
     <string-array name="country_list">
-        <item>"Select country</item>
+        <item>Select country</item>
         <item>United States</item>
+    </string-array>
+
+    <string-array name="size_list">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Extra large</item>
     </string-array>
     <string-array name="states">
         <item>Select state</item>

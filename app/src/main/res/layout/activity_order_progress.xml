@@ -24,8 +24,8 @@
             <ImageView
                 android:id="@+id/imageView16"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:scaleType="center"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/banner2" />
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_margin="10dp"
                 android:fontFamily="@font/capriola"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="John Car Clean Service"
                 android:textSize="25sp" />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/capriola"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Get your car cleaned like new!"
                 android:textColor="@color/blackish"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -57,8 +57,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Service in progress.."
-        android:textSize="20sp"
-        android:textColor="@color/blackish"
+        android:textSize="25sp"
+        android:textColor="#E37777"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="190dp"
-        android:text="—Order completed"
+        android:text="—Payment completed"
         android:textColor="@color/blackish"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -129,7 +129,7 @@
         android:id="@+id/button9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="CONFIRM AND RATE"
+        android:text="CALL SERVICE PROVIDER"
         android:layout_margin="20dp"
         android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"

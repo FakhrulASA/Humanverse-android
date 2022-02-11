@@ -15,6 +15,7 @@ import android.net.NetworkInfo
 
 import android.net.ConnectivityManager
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.util.ExtenFun.isNetworkAvailable
@@ -32,7 +33,12 @@ class ServiceActivity : BaseActivity() {
         binding = ActivityServiceBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        adapter = ServiceItemAdapter(this)
 
+        adapter.itemActionListener = {
+            Toast.makeText(this, "adfsad",Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, OrderServiceActivity::class.java))
+        }
         binding.progressBar2.visibility= View.GONE
         when (intent.extras!!.get(SERVICE_TPYE) as Int) {
             SERVICE_AC -> {
@@ -91,16 +97,13 @@ class ServiceActivity : BaseActivity() {
                             )
                         )
                     }
-                    adapter = ServiceItemAdapter(this)
                     adapter.submitListData(dataList)
                     val layoutManager = GridLayoutManager(
                         this, 1, GridLayoutManager.VERTICAL, false
                     )
                     binding.recService.layoutManager = layoutManager
                     binding.recService.adapter = adapter
-                    adapter.itemActionListener = {
-                        startActivity(Intent(this, ServiceActivity::class.java))
-                    }
+
                 }
                 .addOnFailureListener { exception ->
                     binding.progressBar2.visibility= View.GONE

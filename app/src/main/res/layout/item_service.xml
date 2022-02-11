@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="10dp"
+        android:id="@+id/cardservice"
         android:layout_marginHorizontal="5dp"
         app:cardElevation="2.5dp"
         app:layout_constraintEnd_toEndOf="parent"
