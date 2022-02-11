@@ -66,7 +66,7 @@ class NotificationsFragment : Fragment() {
             "profile_pictures/" + auth.currentUser!!.email
         )!!
         binding.textView21.setOnClickListener {
-            startActivity(Intent(requireContext(),HelpCenterActivity::class.java))
+            startActivity(Intent(requireContext(), HelpCenterActivity::class.java))
         }
         binding.textView12.isEnabled = false
         binding.progressBar3.visibility = View.VISIBLE
@@ -77,6 +77,7 @@ class NotificationsFragment : Fragment() {
                     .load(it)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.plus_holder)
                     .into(binding.profileImage)
                 binding.progressBar3.visibility = View.GONE
             } catch (e: Exception) {
@@ -89,7 +90,13 @@ class NotificationsFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 mobile = documents.get("mobile").toString()
-                binding.textView12.setText(documents.get("name").toString())
+                binding.textView12.setText(
+                    if (documents.get("name").toString() == "null") {
+                        "Add Name"
+                    } else {
+                        documents.get("name").toString()
+                    }
+                )
             }
             .addOnFailureListener { exception ->
             }
@@ -131,7 +138,6 @@ class NotificationsFragment : Fragment() {
                     binding.textView12.isEnabled = false
                     binding.button8.visibility = View.GONE
                     binding.button6.visibility = View.VISIBLE
-
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()

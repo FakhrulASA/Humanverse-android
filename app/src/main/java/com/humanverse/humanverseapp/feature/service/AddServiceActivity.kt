@@ -16,8 +16,7 @@ import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityAddServiceBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
-import com.humanverse.humanverseapp.util.FileUtil
-import com.humanverse.humanverseapp.util.Utils
+import com.humanverse.humanverseapp.util.*
 import java.io.File
 
 
@@ -124,7 +123,7 @@ class AddServiceActivity : BaseActivity() {
     lateinit var image: String
 
     private fun submitData() {
-        binding.progressBar3.visibility = View.VISIBLE
+        showLoader("Your service is uploading, please wait!",this)
         val uploadTask = ref?.putFile(file.toUri())
         try {
             uploadTask.addOnFailureListener {
@@ -134,45 +133,36 @@ class AddServiceActivity : BaseActivity() {
                     image = it.toString()
                     val service = hashMapOf(
                         "serviceName" to serviceName,
-                        "category" to category,
+                        "category" to category.lowercase().replace(" ",""),
                         "country" to country,
                         "state" to state,
                         "description" to description,
                         "price" to price,
                         "city" to city,
                         "email" to auth.currentUser!!.email.toString(),
-                        "banner" to image
+                        "banner" to image,
+                        "userId" to auth.uid
                     )
                     try {
-                        db.collection("service")
-                            .document("services")
-                            .collection(category.lowercase().filter { !it.isWhitespace() })
+                        db.collection("services")
                             .document()
                             .set(service)
                             .addOnSuccessListener {
-                                Utils.showAlertDialogForTap(this,
-                                    "Successfully posted",
-                                    "Your service successfully posted, wait till the verification is complete!",
-                                    {
-                                        startActivity(Intent(this, HomeActivity::class.java))
-                                        finish()
-                                    },
-                                    {
-
-                                    })
-                                binding.progressBar3.visibility = View.GONE
-
+                                showConsent("Congrats, your service is successfully submitted for review, wait for review to complete", this, true){
+                                    startActivity(Intent(this, HomeActivity::class.java))
+                                }
+                                hideConsent()
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                                binding.progressBar3.visibility = View.GONE
+                                hideConsent()
 
                             }
                     } catch (e: Exception) {
                         Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show()
                     }
                 }.addOnFailureListener {
-                    binding.progressBar3.visibility = View.GONE
+                    hideConsent()
                 }
 
             }

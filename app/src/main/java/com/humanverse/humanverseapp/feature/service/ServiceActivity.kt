@@ -71,7 +71,8 @@ class ServiceActivity : BaseActivity() {
         binding.progressBar2.visibility= View.VISIBLE
 
         if(isNetworkAvailable()){
-            db.collection("/service/services/$servie")
+            db.collection("/services/")
+                .whereEqualTo("category",servie)
                 .get()
                 .addOnSuccessListener { documents ->
                     binding.progressBar2.visibility= View.GONE
