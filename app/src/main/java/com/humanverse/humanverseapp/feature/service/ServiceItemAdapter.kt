@@ -29,8 +29,6 @@ class ServiceItemAdapter(var context: Context): RecyclerView.Adapter<ServiceItem
             binding.cardservice.setOnClickListener {
                 adapter.itemActionListener.invoke(model)
             }
-
-
         }
     }
 

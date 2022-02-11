@@ -1,21 +1,15 @@
 package com.humanverse.humanverseapp.util
 
-import android.app.AlertDialog
-import android.content.Context
+import android.app.Activity
 
 object Utils {
 
-    fun showAlertDialogForTap(context: Context, title: String, description: String,
-                              ontapYes:()->Unit, onTapNo:()->Unit) {
-        val alertDialog: AlertDialog =
-            AlertDialog.Builder(context).create()
-        alertDialog.setTitle(title)
-        alertDialog.setMessage(description)
-        alertDialog.setButton(
-            AlertDialog.BUTTON_NEUTRAL, "OK",
-            { dialog, which ->
-                ontapYes.invoke()
-            })
-        alertDialog.show()
+    fun showAlertDialogForTap(
+        context: Activity, title: String, description: String,
+        ontapYes: () -> Unit, onTapNo: () -> Unit
+    ) {
+        showConsent(description, context, false) {
+            ontapYes.invoke()
+        }
     }
 }

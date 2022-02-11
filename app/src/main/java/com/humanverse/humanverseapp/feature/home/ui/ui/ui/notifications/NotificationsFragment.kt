@@ -103,7 +103,7 @@ class NotificationsFragment : Fragment() {
 
         binding.logoutUser.setOnClickListener {
 
-            showAlertDialogForTap(requireContext(),
+            showAlertDialogForTap(requireActivity(),
                 "Signing out?",
                 "Are you sure you want to sign out from the app?",
                 {

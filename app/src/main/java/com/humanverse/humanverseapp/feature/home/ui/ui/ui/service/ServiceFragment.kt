@@ -1,6 +1,8 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.service
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import com.humanverse.humanverseapp.feature.service.ServiceActivity
 import com.humanverse.humanverseapp.feature.service.ServiceItemAdapter
 import com.humanverse.humanverseapp.model.ServiceModel
 import com.humanverse.humanverseapp.util.hideConsent
+import com.humanverse.humanverseapp.util.showConsent
 import com.humanverse.humanverseapp.util.showLoader
 
 class ServiceFragment : Fragment() {
@@ -55,6 +58,29 @@ class ServiceFragment : Fragment() {
         storage = FirebaseStorage.getInstance()
         showLoader("loading! \n Please wait...", requireActivity())
         storageReference = storage!!.reference
+        adapter = ServiceItemAdapter(requireContext())
+
+        adapter.itemActionListener = {
+            showConsent("To manage your services, please download our Humanverse Service App. Click here to download",requireActivity(),true)
+            {
+                val appPackageName: String = "asfasf"// package name of the app
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$appPackageName")
+                        )
+                    )
+                } catch (anfe: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        )
+                    )
+                }
+            }
+        }
         db.collection("/services/")
             .whereEqualTo("email", auth.currentUser?.email)
             .get()
@@ -74,7 +100,6 @@ class ServiceFragment : Fragment() {
                 } else {
                     binding.layouttextnone.visibility = View.VISIBLE
                 }
-                adapter = ServiceItemAdapter(requireContext())
                 adapter.submitListData(dataList)
                 val layoutManager = GridLayoutManager(
                     requireContext(), 1, GridLayoutManager.VERTICAL, false
@@ -82,9 +107,7 @@ class ServiceFragment : Fragment() {
                 binding.recService.layoutManager = layoutManager
                 binding.recService.adapter = adapter
                 hideConsent()
-                adapter.itemActionListener = {
-                    startActivity(Intent(requireContext(), ServiceActivity::class.java))
-                }
+
             }
             .addOnFailureListener { exception ->
                 hideConsent()

@@ -37,7 +37,12 @@ class ServiceActivity : BaseActivity() {
 
         adapter.itemActionListener = {
             Toast.makeText(this, "adfsad",Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, OrderServiceActivity::class.java))
+            var intent = Intent(this, OrderServiceActivity::class.java)
+            intent.putExtra("ID",it.id)
+            intent.putExtra("NAME",it.title)
+            intent.putExtra("IMAGE",it.img)
+            intent.putExtra("PRICE",it.price)
+            startActivity(intent)
         }
         binding.progressBar2.visibility= View.GONE
         when (intent.extras!!.get(SERVICE_TPYE) as Int) {
@@ -74,16 +79,16 @@ class ServiceActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getService(servie: String) {
-        binding.progressBar2.visibility= View.VISIBLE
-
+        showLoader("Loading services \n Please wait...",this)
         if(isNetworkAvailable()){
             db.collection("/services/")
                 .whereEqualTo("category",servie)
                 .get()
                 .addOnSuccessListener { documents ->
-                    binding.progressBar2.visibility= View.GONE
+                    hideConsent()
                     if(documents.size()==0){
                         binding.imageView10.visibility=View.VISIBLE
+                        hideConsent()
                     }
                     Log.w("DATA FOUND FRB", documents.toString())
                     for (document in documents) {
@@ -106,7 +111,7 @@ class ServiceActivity : BaseActivity() {
 
                 }
                 .addOnFailureListener { exception ->
-                    binding.progressBar2.visibility= View.GONE
+                    hideConsent()
                     binding.imageView10.visibility=View.VISIBLE
                     Log.w("DATA FOUND FRB", "Error getting documents: ", exception)
                 }

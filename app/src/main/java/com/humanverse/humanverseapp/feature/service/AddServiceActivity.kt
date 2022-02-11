@@ -149,7 +149,7 @@ class AddServiceActivity : BaseActivity() {
                             .document()
                             .set(service)
                             .addOnSuccessListener {
-                                showConsent("Congrats, your service is successfully submitted for review, wait for review to complete", this, true){
+                                showConsent("Congrats, your service is successfully submitted for review, wait for review to complete", this, false){
                                     startActivity(Intent(this, HomeActivity::class.java))
                                 }
                                 hideConsent()

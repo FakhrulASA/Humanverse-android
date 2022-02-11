@@ -4,10 +4,13 @@ import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.humanverse.humanverseapp.util.showConsent
 
 abstract class BaseActivity : AppCompatActivity() {
     fun makeToastLong(messsage: String) {
-        Toast.makeText(this, messsage, Toast.LENGTH_LONG).show()
+        showConsent(messsage,this,true){
+
+        }
     }
 
     fun makeToastShort(messsage: String) {
@@ -15,12 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showAlertDialog(context: Context, title: String, description: String) {
-        val alertDialog: AlertDialog =
-            AlertDialog.Builder(context).create()
-        alertDialog.setTitle(title)
-        alertDialog.setMessage(description)
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-            { dialog, which -> dialog.dismiss() })
-        alertDialog.show()
-    }
+        showConsent(description,this,true){
+
+        }    }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8F8"
     tools:context=".feature.service.OrderServiceActivity">
 
     <androidx.cardview.widget.CardView
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
+                android:visibility="gone"
                 android:fontFamily="@font/capriola"
                 android:gravity="center"
                 android:text="TextView"
@@ -195,6 +197,7 @@
                         android:background="@drawable/rounded_stroke"
                         android:text="12:30 PM"
                         android:gravity="center"
+                        android:textSize="16sp"
                         android:textColor="@color/purple_500"
                         app:layout_constraintBottom_toBottomOf="@+id/textView33"
                         app:layout_constraintEnd_toEndOf="@+id/textView32"
@@ -287,7 +290,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/capriola"
+                        android:fontFamily="sans-serif"
                         android:gravity="center|end"
                         android:paddingEnd="20dp"
                         android:text="20$"

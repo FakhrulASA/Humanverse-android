@@ -21,17 +21,13 @@ fun showConsent(type:String,activity: Activity, isHide :Boolean, succss:()->Unit
         dialog = Dialog(activity).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(binding.root)
-            setCancelable(false)
+            setCancelable(isHide)
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window?.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
-            if(isHide){
-                binding.aa.visibility= View.VISIBLE
-            }else{
-                binding.aa.visibility= View.GONE
-            }
+
             binding.aa.setOnClickListener {
                 try {
                     succss.invoke()
