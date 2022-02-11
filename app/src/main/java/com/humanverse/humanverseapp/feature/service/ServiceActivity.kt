@@ -86,7 +86,8 @@ class ServiceActivity : BaseActivity() {
                                 img = document.get("banner").toString(),
                                 title = document.get("serviceName").toString(),
                                 des = document.get("description").toString(),
-                                price = document.get("price").toString().toInt()
+                                price = document.get("price").toString().toInt(),
+                                id = document.id.toString()
                             )
                         )
                     }

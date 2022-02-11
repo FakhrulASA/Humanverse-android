@@ -50,9 +50,7 @@ class AddServiceActivity : BaseActivity() {
         binding.button4.setOnClickListener {
             openGallery()
         }
-        ref = storageReference?.child(
-            "service_banner/" + auth.currentUser!!.email
-        )!!
+
         binding.button5.setOnClickListener {
             category = binding.spinner.selectedItem.toString()
             country = binding.spinner4.selectedItem.toString()
@@ -124,6 +122,9 @@ class AddServiceActivity : BaseActivity() {
 
     private fun submitData() {
         showLoader("Your service is uploading, please wait!",this)
+        ref = storageReference?.child(
+            "service_banner/" + auth.currentUser!!.email+serviceName.lowercase().replace(" ","")
+        )!!
         val uploadTask = ref?.putFile(file.toUri())
         try {
             uploadTask.addOnFailureListener {

@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.humanverse.humanverseapp.feature.home.ui.ui.ui.dashboard.DashboardFragment"
-        android:label="Favorite"
+        android:label="History"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/navigation_notifications"
