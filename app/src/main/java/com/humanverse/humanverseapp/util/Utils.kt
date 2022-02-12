@@ -8,7 +8,7 @@ object Utils {
         context: Activity, title: String, description: String,
         ontapYes: () -> Unit, onTapNo: () -> Unit
     ) {
-        showConsent(description, context, false) {
+        showConsent(description, context, true) {
             ontapYes.invoke()
         }
     }

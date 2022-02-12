@@ -12,7 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
+            android:name=".feature.auth.ui.ForgetPasswordActivity"
+            android:theme="@style/Theme.Humanversenoction"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
             android:name=".feature.service.OrderDetailsActivity"
+            android:label="Order detail's"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".feature.service.OrderProgressActivity"

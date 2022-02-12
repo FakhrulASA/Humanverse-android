@@ -12,6 +12,8 @@ import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityLoginBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
 import com.humanverse.humanverseapp.firebase.AuthImp
+import com.humanverse.humanverseapp.util.hideDialog
+import com.humanverse.humanverseapp.util.showConsent
 
 //completed
 class LoginActivity : BaseActivity() {
@@ -34,7 +36,9 @@ class LoginActivity : BaseActivity() {
         }
         binding.button2.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
-            finish()
+        }
+        binding.textView2.setOnClickListener {
+            startActivity(Intent(this,ForgetPasswordActivity::class.java))
         }
     }
 
@@ -77,8 +81,9 @@ class LoginActivity : BaseActivity() {
                             }
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            makeToastLong(task.exception!!.message.toString())
+                            showConsent(task.exception?.message.toString(), this, true) {
+                                hideDialog()
+                            }
                             binding.progressBar.visibility= View.GONE
                             binding.button.text=getString(R.string.login_string)
                         }
