@@ -66,3 +66,6 @@ fun showLoader(type:String,activity: Activity) {
 fun hideConsent(){
     dialog2?.dismiss()
 }
+fun hideDialog(){
+    dialog?.dismiss()
+}

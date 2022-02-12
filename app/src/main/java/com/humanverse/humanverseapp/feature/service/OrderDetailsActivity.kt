@@ -23,6 +23,7 @@ class OrderDetailsActivity : AppCompatActivity() {
     private lateinit var ref: StorageReference
     var storage: FirebaseStorage? = null
     var storageReference: StorageReference? = null
+    var email : String =""
     var name: String = ""
     var price: String = ""
     var image: String = ""
@@ -45,6 +46,7 @@ class OrderDetailsActivity : AppCompatActivity() {
             intent.putExtra("NAME",name)
             intent.putExtra("IMAGE",image)
             intent.putExtra("PRICE",price)
+            intent.putExtra("EMAIL",email)
             startActivity(intent)
         }
         showLoader("Loading service, wait...",this)
@@ -74,6 +76,8 @@ class OrderDetailsActivity : AppCompatActivity() {
                  }
                 binding.textView51.text ="Price starts from: "+ documents.get("price").toString()+"$"
                 binding.textView39.text ="Contact: "+ documents.get("email").toString()
+
+                email = documents.get("email").toString()
             }
             .addOnFailureListener { exception ->
                 hideConsent()
