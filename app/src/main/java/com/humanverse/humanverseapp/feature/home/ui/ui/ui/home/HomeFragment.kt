@@ -15,11 +15,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.aemerse.slider.model.CarouselItem
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentHomeBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.ui.dashboard.adapter.DashboardItemAdapter
+import com.humanverse.humanverseapp.feature.service.AllServiceActivity
 import com.humanverse.humanverseapp.feature.service.ServiceActivity
+import com.humanverse.humanverseapp.model.HistoryServiceModel
+import com.humanverse.humanverseapp.model.ModelDashboardItem
+import com.humanverse.humanverseapp.model.ServiceModel
 import com.humanverse.humanverseapp.util.SERVICE_TPYE
+import com.humanverse.humanverseapp.util.hideConsent
+import com.humanverse.humanverseapp.util.showLoader
 
 
 class HomeFragment : Fragment() {
@@ -27,9 +37,14 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var adapter: DashboardItemAdapter
-
+    var db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
+    private lateinit var ref: StorageReference
+    var storage: FirebaseStorage? = null
+    var storageReference: StorageReference? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
+    var dashboardItems : MutableList<ModelDashboardItem> = mutableListOf()
     val vm: HomeViewModel by viewModels()
     lateinit var listSlider: MutableList<CarouselItem>
     private val binding get() = _binding!!
@@ -47,8 +62,52 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initList()
+        auth = FirebaseAuth.getInstance()
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage!!.reference;
+        adapter = DashboardItemAdapter(requireContext())
         initSlider()
+
+        showLoader("Loading, please wait...", requireActivity())
+        binding.button3.setOnClickListener {
+            startActivity(Intent(requireContext(),AllServiceActivity::class.java))
+        }
+        db.collection("category")
+            .get()
+            .addOnSuccessListener {
+                hideConsent()
+                for(document in it.documents){
+                    dashboardItems.add(
+                        ModelDashboardItem(
+                            document.get("title").toString(),
+                            document.get("image").toString(),
+                            document.get("name").toString()
+                        )
+                    )
+                    dashboardItems.sortBy {
+                        it.title
+                    }
+                }
+                adapter.submitListData(dashboardItems)
+                val layoutManager = GridLayoutManager(
+                    activity, 3, GridLayoutManager.VERTICAL, false
+                )
+                binding.recyclerViewDashboarditem.layoutManager = layoutManager
+                binding.recyclerViewDashboarditem.adapter = adapter
+                adapter.itemActionListener = {
+                    val intent = Intent(requireContext(), ServiceActivity::class.java)
+                    intent.putExtra(SERVICE_TPYE,it.type)
+                    intent.putExtra("NAME",it.title)
+                    startActivity(intent)
+                }
+
+                hideConsent()
+            }
+            .addOnFailureListener { e ->
+                hideConsent()
+                Toast.makeText(requireContext(),e.message,Toast.LENGTH_SHORT).show()
+
+            }
     }
 
     private fun initSlider() {
@@ -67,25 +126,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun initList() {
-        vm.setValue()
-        vm.listItem.observe(this) { dashboarditem ->
-            adapter = DashboardItemAdapter(requireContext())
-            Log.d("DataListFound", dashboarditem.toString())
-            adapter.submitListData(dashboarditem)
-            val layoutManager = GridLayoutManager(
-                activity, 3, GridLayoutManager.VERTICAL, false
-            )
-            binding.recyclerViewDashboarditem.layoutManager = layoutManager
-            binding.recyclerViewDashboarditem.adapter = adapter
-            adapter.itemActionListener = {
-                val intent = Intent(requireContext(), ServiceActivity::class.java)
-                intent.putExtra(SERVICE_TPYE,it.type)
-                startActivity(intent)
-            }
-        }
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

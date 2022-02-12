@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -16,12 +17,14 @@ import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityAddServiceBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
+import com.humanverse.humanverseapp.model.ModelDashboardItem
 import com.humanverse.humanverseapp.util.*
 import java.io.File
 
 
 class AddServiceActivity : BaseActivity() {
     var db = FirebaseFirestore.getInstance()
+    var listType : MutableList<String> = mutableListOf()
     private lateinit var auth: FirebaseAuth
     private lateinit var ref: StorageReference
     var storage: FirebaseStorage? = null
@@ -50,7 +53,31 @@ class AddServiceActivity : BaseActivity() {
         binding.button4.setOnClickListener {
             openGallery()
         }
+        db.collection("category")
+            .get()
+            .addOnSuccessListener {
+                for(document in it.documents){
+                    listType.add(
+                        document.get("title").toString()
+                    )
+                    listType.sortBy {
+                        it
+                    }
+                }
+                val a: ArrayAdapter<String> = ArrayAdapter<String>(
+                    this,
+                    R.layout.item_spinner,
+                    listType
+                )
+                a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinner.adapter = a
+                hideConsent()
+            }
+            .addOnFailureListener { e ->
+                hideConsent()
+                Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
 
+            }
         binding.button5.setOnClickListener {
             category = binding.spinner.selectedItem.toString()
             country = binding.spinner4.selectedItem.toString()
@@ -134,7 +161,7 @@ class AddServiceActivity : BaseActivity() {
                     image = it.toString()
                     val service = hashMapOf(
                         "serviceName" to serviceName,
-                        "category" to category.lowercase().replace(" ",""),
+                        "category" to category.lowercase().replace(" ","").replace("/",""),
                         "country" to country,
                         "state" to state,
                         "description" to description,
@@ -195,13 +222,7 @@ class AddServiceActivity : BaseActivity() {
         }
 
     private fun initSpinner() {
-        val a: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            R.layout.item_spinner,
-            resources.getStringArray(R.array.service_type)
-        )
-        a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinner.adapter = a
+
         val b: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             R.layout.item_spinner,

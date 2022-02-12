@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.humanverse.humanverseapp.util.hideDialog
 import com.humanverse.humanverseapp.util.showConsent
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -19,6 +20,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showAlertDialog(context: Context, title: String, description: String) {
         showConsent(description,this,true){
-
+            hideDialog()
         }    }
 }

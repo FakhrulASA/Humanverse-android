@@ -16,51 +16,5 @@ class HomeViewModel : ViewModel() {
     var listItem: MutableLiveData<MutableList<ModelDashboardItem>> = MutableLiveData()
     private var modelList: MutableList<ModelDashboardItem> = mutableListOf()
 
-    fun setValue() {
-        modelList.clear()
-        modelList.add(
-            ModelDashboardItem(
-                "Car Rent",
-                R.drawable.car,
-                2
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Car Wash",
-                R.drawable.car_wash,
-                1
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Auto Repair",
-                R.drawable.auto,
-                3
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Calender",
-                R.drawable.calender,
-                4
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Charities",
-                R.drawable.charities,
-                5
-            )
-        )
-        modelList.add(
-            ModelDashboardItem(
-                "Ac Service",
-                R.drawable.ac,
-                6
-            )
-        )
-        listItem.postValue(modelList)
 
-    }
 }

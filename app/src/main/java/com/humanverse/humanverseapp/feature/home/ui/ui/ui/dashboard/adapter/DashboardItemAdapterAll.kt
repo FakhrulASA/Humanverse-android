@@ -14,10 +14,10 @@ import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.ItemDashboardBinding
 import com.humanverse.humanverseapp.model.ModelDashboardItem
 
-class DashboardItemAdapter(var context: Context): RecyclerView.Adapter<DashboardItemAdapter.DashboardItemViewHolder>()  {
+class DashboardItemAdapterAll(var context: Context): RecyclerView.Adapter<DashboardItemAdapterAll.DashboardItemViewHolder>()  {
     class DashboardItemViewHolder (
         private val binding: ItemDashboardBinding,
-        private val adapter: DashboardItemAdapter,
+        private val adapter: DashboardItemAdapterAll,
         private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
@@ -92,5 +92,5 @@ class DashboardItemAdapter(var context: Context): RecyclerView.Adapter<Dashboard
         position: Int)=
         holder.bindView(position)
 
-    override fun getItemCount(): Int  = 6
+    override fun getItemCount(): Int  = getCurrentDataSet().size
 }

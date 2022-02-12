@@ -10,7 +10,10 @@ import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityRegistrationBinding
 import com.humanverse.humanverseapp.firebase.AuthImp
 import android.content.DialogInterface
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.humanverse.humanverseapp.R
+import com.humanverse.humanverseapp.util.ExtenFun.isNetworkAvailable
 
 
 class RegistrationActivity : BaseActivity() {
@@ -18,6 +21,7 @@ class RegistrationActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var authImp: AuthImp
     var db = FirebaseFirestore.getInstance()
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -28,7 +32,12 @@ class RegistrationActivity : BaseActivity() {
         binding.button.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             binding.button.text = ""
-            verifyRegistration()
+            if(this@RegistrationActivity.isNetworkAvailable()){
+                verifyRegistration()
+            }else{
+                showAlertDialog(this, "Network not available","")
+                binding.progressBar.visibility = View.GONE
+            }
         }
 
         binding.button2.setOnClickListener {

@@ -44,36 +44,8 @@ class ServiceActivity : BaseActivity() {
             startActivity(intent)
         }
         binding.progressBar2.visibility= View.GONE
-        when (intent.extras!!.get(SERVICE_TPYE) as Int) {
-            SERVICE_AC -> {
-                getService("acrepair")
-                title = "Ac services"
-            }
-            SERVICE_CAR_WASH -> {
-                getService("carwash")
-                title = "Car wash service's"
-
-            }
-            SERVICE_CALENDER -> {
-                getService("calender")
-                title = "Calender service's"
-
-            }
-            SERVICE_CAR_RENT -> {
-                getService("carrental")
-                setTitle("Car rental service's")
-            }
-            SERVICE_CHARITIES -> {
-                getService("charities")
-                setTitle("Charities service's")
-            }
-            SERVICE_CAR_REPAIR -> {
-                getService("carrepair")
-                setTitle("Car repair service's")
-            }
-        }
-
-
+        getService(intent.extras!!.get(SERVICE_TPYE).toString().trim())
+        title=intent.extras!!.get("NAME").toString()+" service's"
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

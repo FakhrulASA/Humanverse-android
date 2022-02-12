@@ -1,10 +1,12 @@
 package com.humanverse.humanverseapp.feature.auth.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.humanverse.humanverseapp.R
@@ -12,6 +14,7 @@ import com.humanverse.humanverseapp.base.BaseActivity
 import com.humanverse.humanverseapp.databinding.ActivityLoginBinding
 import com.humanverse.humanverseapp.feature.home.ui.ui.HomeActivity
 import com.humanverse.humanverseapp.firebase.AuthImp
+import com.humanverse.humanverseapp.util.ExtenFun.isNetworkAvailable
 import com.humanverse.humanverseapp.util.hideDialog
 import com.humanverse.humanverseapp.util.showConsent
 
@@ -21,6 +24,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var authImp: AuthImp
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -32,7 +36,12 @@ class LoginActivity : BaseActivity() {
         binding.button.setOnClickListener {
             binding.progressBar.visibility= View.VISIBLE
             binding.button.text=""
-            verifyInputs()
+            if(this@LoginActivity.isNetworkAvailable()){
+                verifyInputs()
+            }else{
+                binding.progressBar.visibility= View.GONE
+            }
+
         }
         binding.button2.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
