@@ -12,49 +12,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
-            android:name=".feature.service.OrderProgressActivity"
-            android:screenOrientation="portrait"
-
+            android:name=".feature.service.OrderDetailsActivity"
             android:exported="false" />
+        <activity
+            android:name=".feature.service.OrderProgressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.service.OrderServiceActivity"
-            android:screenOrientation="portrait"
-
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.helpcenter.HelpCenterActivity"
-            android:screenOrientation="portrait"
-
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.profile.ProfileActivity"
-            android:screenOrientation="portrait"
-
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.service.AddServiceActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-
             android:label="Add service"
-            android:parentActivityName=".feature.home.ui.ui.HomeActivity" />
+            android:parentActivityName=".feature.home.ui.ui.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.service.ServiceActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-
             android:label="Available car service&apos;s"
-            android:parentActivityName=".feature.home.ui.ui.HomeActivity" />
+            android:parentActivityName=".feature.home.ui.ui.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.home.ui.ui.HomeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_home_dashboard" />
+            android:label="@string/title_activity_home_dashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.auth.ui.RegistrationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-
             android:theme="@style/Theme.Humanversenoction" />
         <activity
             android:name=".feature.auth.ui.LoginActivity"
@@ -65,7 +61,6 @@
             android:name=".feature.splash.ui.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

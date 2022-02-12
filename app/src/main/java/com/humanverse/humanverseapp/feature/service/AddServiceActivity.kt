@@ -142,7 +142,8 @@ class AddServiceActivity : BaseActivity() {
                         "city" to city,
                         "email" to auth.currentUser!!.email.toString(),
                         "banner" to image,
-                        "userId" to auth.uid
+                        "userId" to auth.uid,
+                        "serviceWebsite" to website
                     )
                     try {
                         db.collection("services")

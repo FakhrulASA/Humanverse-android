@@ -36,8 +36,7 @@ class ServiceActivity : BaseActivity() {
         adapter = ServiceItemAdapter(this)
 
         adapter.itemActionListener = {
-            Toast.makeText(this, "adfsad",Toast.LENGTH_SHORT).show()
-            var intent = Intent(this, OrderServiceActivity::class.java)
+            var intent = Intent(this, OrderDetailsActivity::class.java)
             intent.putExtra("ID",it.id)
             intent.putExtra("NAME",it.title)
             intent.putExtra("IMAGE",it.img)
