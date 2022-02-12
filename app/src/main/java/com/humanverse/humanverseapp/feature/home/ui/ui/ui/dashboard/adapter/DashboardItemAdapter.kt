@@ -79,7 +79,7 @@ class DashboardItemAdapter(var context: Context): RecyclerView.Adapter<Dashboard
     override fun onBindViewHolder(
         holder: DashboardItemViewHolder,
         position: Int)=
-            holder.bindView(position)
+        holder.bindView(position)
 
     override fun getItemCount(): Int  = differ.currentList.size
 }

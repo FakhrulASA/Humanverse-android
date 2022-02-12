@@ -45,6 +45,7 @@ class OrderServiceActivity : AppCompatActivity() {
     var storage: FirebaseStorage? = null
     var storageReference: StorageReference? = null
 
+    var finalPrice : Double = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderServiceBinding.inflate(layoutInflater)
@@ -73,12 +74,17 @@ class OrderServiceActivity : AppCompatActivity() {
                 id: Long
             ) {
                 if(position==0){
+                    finalPrice = price.toDouble()
+
                     binding.textView38.text = "$price$"
                 }else if(position==1){
+                    finalPrice = price.toInt()+priceX
                     binding.textView38.text = (price.toInt()+priceX).toString()+"$"
                 }else if(position==2){
+                    finalPrice = price.toInt()+priceX*2
                     binding.textView38.text = (price.toInt()+(priceX*2)).toString()+"$"
                 }else if(position==3){
+                    finalPrice = price.toInt()+priceX*3
                     binding.textView38.text = (price.toInt()+(priceX*3)).toString()+"$"
                 }
             }
@@ -97,7 +103,7 @@ class OrderServiceActivity : AppCompatActivity() {
                 val service = hashMapOf(
                     "customer" to auth.currentUser!!.email,
                     "provider" to email,
-                    "price" to price,
+                    "price" to finalPrice,
                     "size" to size,
                     "description" to description,
                     "model" to price,

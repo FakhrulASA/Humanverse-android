@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/purple_700"
         app:cardUseCompatPadding="true"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,12 +22,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/banner2" />
 
             <TextView
                 android:id="@+id/textView24"
@@ -35,6 +30,8 @@
                 android:layout_margin="10dp"
                 android:fontFamily="@font/capriola"
                 android:gravity="center"
+                android:textColor="@color/white"
+                android:padding="10dp"
                 android:text="John Car Clean Service"
                 android:textSize="25sp" />
 
@@ -44,11 +41,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/capriola"
-                android:gravity="center"
-                android:text="Get your car cleaned like new!"
-                android:textColor="@color/blackish"
-                android:textSize="15sp" />
+                android:fontFamily="sans-serif"
+                android:paddingHorizontal="10dp"
+                android:gravity="start"
+                android:text="Estimated completion date: "
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView252"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="10dp"
+                android:textStyle="bold"
+                android:text="ORDER ID: "
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -58,7 +71,7 @@
         android:layout_height="wrap_content"
         android:text="Service in progress.."
         android:textSize="25sp"
-        android:textColor="#E37777"
+        android:textColor="#8E8E8E"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="—Order pending"
-        android:textColor="@color/purple_500"
+        android:textColor="#AB37BF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/linearLayout2"
