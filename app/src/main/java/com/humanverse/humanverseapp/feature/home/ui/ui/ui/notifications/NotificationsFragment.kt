@@ -1,6 +1,7 @@
 package com.humanverse.humanverseapp.feature.home.ui.ui.ui.notifications
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -25,9 +26,14 @@ import com.humanverse.humanverseapp.R
 import com.humanverse.humanverseapp.databinding.FragmentNotificationsBinding
 import com.humanverse.humanverseapp.feature.auth.ui.LoginActivity
 import com.humanverse.humanverseapp.feature.helpcenter.HelpCenterActivity
-import com.humanverse.humanverseapp.util.FileUtil
 import com.humanverse.humanverseapp.util.Utils.showAlertDialogForTap
 import java.io.File
+import android.content.ClipData.Item
+
+import android.content.DialogInterface
+import androidx.appcompat.app.AlertDialog
+import com.humanverse.humanverseapp.feature.payment.PaymentActivity
+import com.humanverse.humanverseapp.util.*
 
 
 class NotificationsFragment : Fragment() {
@@ -68,6 +74,50 @@ class NotificationsFragment : Fragment() {
         binding.textView21.setOnClickListener {
             startActivity(Intent(requireContext(), HelpCenterActivity::class.java))
         }
+        db.collection("trialstatus")
+            .whereEqualTo("email", auth.currentUser!!.email)
+            .get()
+            .addOnSuccessListener {
+                showConsent("You trial membership only "+it.documents.get(0).get("time").toString()+". Please renew to have access over 100's of services to provide and earn",requireActivity(),true){
+                    hideDialog()
+                }
+                binding.textView23.text = it.documents.get(0).get("time").toString()
+            }
+            .addOnFailureListener { e ->
+
+            }
+
+        binding.logoutUser.setOnClickListener {
+            showRatingDialog(requireActivity()){
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=humanverse")
+                        )
+                    )
+                } catch (anfe: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=humanverse")
+                        )
+                    )
+                }
+            }
+        }
+        binding.shareuser1.setOnClickListener {
+            try {
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name")
+                var shareMessage = "Welcome to Humanverse, feel free show share and let others know. \n Visit: https://sites.google.com/view/humanverse/home"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+                startActivity(Intent.createChooser(shareIntent, "Share with."))
+            } catch (e: java.lang.Exception) {
+                //e.toString();
+            }
+        }
         binding.textView12.isEnabled = false
         binding.progressBar3.visibility = View.VISIBLE
         ref?.downloadUrl?.addOnSuccessListener {
@@ -101,7 +151,7 @@ class NotificationsFragment : Fragment() {
             .addOnFailureListener { exception ->
             }
 
-        binding.logoutUser.setOnClickListener {
+        binding.shareuser.setOnClickListener {
 
             showAlertDialogForTap(requireActivity(),
                 "Signing out?",

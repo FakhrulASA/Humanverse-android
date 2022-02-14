@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Humanverse">
         <activity
-            android:name=".feature.service.AllServiceActivity"
-            android:screenOrientation="portrait"
-            android:label="All service's"
+            android:name=".feature.payment.PaymentActivity"
             android:exported="false" />
+        <activity
+            android:name=".feature.service.AllServiceActivity"
+            android:exported="false"
+            android:label="All service&apos;s"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".feature.auth.ui.ForgetPasswordActivity"
             android:exported="false"
